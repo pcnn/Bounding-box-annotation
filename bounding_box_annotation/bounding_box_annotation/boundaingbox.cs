@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Drawing.Drawing2D;
 
 namespace bounding_box_annotation
 {
@@ -23,10 +24,11 @@ namespace bounding_box_annotation
             bmp_canvas = null;
             imageLocation = "";
             imageRect = RectangleF.Empty;
-            penBB = new Pen(new SolidBrush(Color.FromArgb(255, 255, 0, 0)), 2);            
+            penBB = new Pen(new SolidBrush(Color.Purple), 2);            
             penGuidLine = new Pen(new SolidBrush(Color.FromArgb(200, 127, 127, 127)), 1);
             penMouseGuid = new Pen(new SolidBrush(penBB.Color), 1);
             this.show_mouse_guid = true;
+            this.showArros = true;
 
             drawingState = DrawingState.None;
 
@@ -70,7 +72,11 @@ namespace bounding_box_annotation
             InflateBoundingBoxLeft,
             InflateBoundingBoxRight,
             InflateBoundingBoxUp,
-            InflateBoundingBoxDown,            
+            InflateBoundingBoxDown,  
+            InflateBounfingUpRight,
+            InflateBounfingUpLeft,
+            InflateBounfingDownRight,
+            InflateBounfingDownLeft,
             MoveImage,
             MoveBoundingBox,
             None,
@@ -92,11 +98,27 @@ namespace bounding_box_annotation
         DrawingState drawingState;
         bool is_ctrl_down;
         bool show_mouse_guid;
+        bool showArros;
 
         public delegate void ScaleEventHandler(object sender, float scale);
 
         public event ScaleEventHandler ScaleChanged;
 
+        [Description("Show arrows on bounding boxes")]
+        public bool ShowArrows
+        {
+            get
+            {
+                return this.showArros;
+            }
+            set
+            {
+                this.showArros = value;
+                this.Refresh();
+            }
+        }
+
+        [Description("Show guid in location os mouse")]
         public bool ShowMouseGuid
         {
             get
@@ -323,7 +345,11 @@ namespace bounding_box_annotation
                 else if (drawingState == DrawingState.InflateBoundingBoxLeft ||
                          drawingState == DrawingState.InflateBoundingBoxRight ||
                          drawingState == DrawingState.InflateBoundingBoxUp ||
-                         drawingState == DrawingState.InflateBoundingBoxDown)
+                         drawingState == DrawingState.InflateBoundingBoxDown ||
+                         drawingState == DrawingState.InflateBounfingUpLeft ||
+                         drawingState == DrawingState.InflateBounfingUpRight ||
+                         drawingState ==  DrawingState.InflateBounfingDownLeft ||
+                         drawingState == DrawingState.InflateBounfingDownRight)
                 {
                     ptStart = e.Location;
                 }
@@ -411,6 +437,46 @@ namespace bounding_box_annotation
                     ptStart = ptEnd;
                     this.Refresh();
                 }
+                else if (drawingState == DrawingState.InflateBounfingUpLeft)
+                {
+                    ptEnd = e.Location;
+                    float d = ptEnd.Y - ptStart.Y;
+                    list_bbs[selected_bb_index] = list_bbs[selected_bb_index].InflateUp(d / scale);
+                    d = ptEnd.X - ptStart.X;
+                    list_bbs[selected_bb_index] = list_bbs[selected_bb_index].InflateLeft(d / scale);
+                    ptStart = ptEnd;
+                    this.Refresh();
+                }
+                else if (drawingState == DrawingState.InflateBounfingUpRight)
+                {
+                    ptEnd = e.Location;
+                    float d = ptEnd.Y - ptStart.Y;
+                    list_bbs[selected_bb_index] = list_bbs[selected_bb_index].InflateUp(d / scale);
+                    d = ptEnd.X - ptStart.X;
+                    list_bbs[selected_bb_index] = list_bbs[selected_bb_index].InflateRight(d / scale);
+                    ptStart = ptEnd;
+                    this.Refresh();
+                }
+                else if (drawingState == DrawingState.InflateBounfingDownLeft)
+                {
+                    ptEnd = e.Location;
+                    float d = ptEnd.Y - ptStart.Y;
+                    list_bbs[selected_bb_index] = list_bbs[selected_bb_index].InflateDown(d / scale);
+                    d = ptEnd.X - ptStart.X;
+                    list_bbs[selected_bb_index] = list_bbs[selected_bb_index].InflateLeft(d / scale);
+                    ptStart = ptEnd;
+                    this.Refresh();
+                }
+                else if (drawingState == DrawingState.InflateBounfingDownRight)
+                {
+                    ptEnd = e.Location;
+                    float d = ptEnd.Y - ptStart.Y;
+                    list_bbs[selected_bb_index] = list_bbs[selected_bb_index].InflateDown(d / scale);
+                    d = ptEnd.X - ptStart.X;
+                    list_bbs[selected_bb_index] = list_bbs[selected_bb_index].InflateRight(d / scale);
+                    ptStart = ptEnd;
+                    this.Refresh();
+                }
             }
             else
             {
@@ -458,6 +524,30 @@ namespace bounding_box_annotation
                             drawingState = DrawingState.InflateBoundingBoxDown;
                             this.Cursor = Cursors.PanSouth;
                         }
+                        else if ((e.Location.Y - temp_rect.Y) < temp_rect.Height * 0.1 &&
+                                  (e.Location.X - temp_rect.X) < temp_rect.Width * 0.1)
+                        {
+                            drawingState = DrawingState.InflateBounfingUpLeft;
+                            this.Cursor = Cursors.PanNW;
+                        }
+                        else if ((e.Location.Y - temp_rect.Y) < temp_rect.Height * 0.1 &&
+                                  (e.Location.X - temp_rect.X) > temp_rect.Width * 0.9)
+                        {
+                            drawingState = DrawingState.InflateBounfingUpRight;
+                            this.Cursor = Cursors.PanNE;
+                        }
+                        else if ((e.Location.Y - temp_rect.Y) > temp_rect.Height * 0.9 &&
+                                  (e.Location.X - temp_rect.X) < temp_rect.Width * 0.1)
+                        {
+                            drawingState = DrawingState.InflateBounfingDownLeft;
+                            this.Cursor = Cursors.PanSW;
+                        }
+                        else if ((e.Location.Y - temp_rect.Y) > temp_rect.Height * 0.9 &&
+                                  (e.Location.X - temp_rect.X) > temp_rect.Width * 0.9)
+                        {
+                            drawingState = DrawingState.InflateBounfingDownRight;
+                            this.Cursor = Cursors.PanSE;
+                        }
                     }
                 }
                 this.Refresh();
@@ -498,6 +588,7 @@ namespace bounding_box_annotation
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             if (bmp_canvas != null)
             {
                 e.Graphics.DrawImage(bmp_canvas, imageRect);
@@ -520,7 +611,7 @@ namespace bounding_box_annotation
             {
                 Rectangle temp_rect = (Rectangle)list_bbs[current_bb_index].Scale(scale).Translate(imageRect.Location);
                 e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(127, penBB.Color)), temp_rect);
-                e.Graphics.DrawRectangle(penBB, temp_rect);
+                e.Graphics.DrawRectangle(penBB, temp_rect);                
             }
 
             //Drawing the selected bounding box
@@ -529,6 +620,72 @@ namespace bounding_box_annotation
                 Rectangle temp_rect = (Rectangle)list_bbs[selected_bb_index].Scale(scale).Translate(imageRect.Location);
                 e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(127, penBB.Color)), temp_rect);
                 e.Graphics.DrawRectangle(penBB, temp_rect);
+                #region Draw arrows
+                if (showArros)
+                {
+                    using (GraphicsPath gPath = new GraphicsPath())
+                    {
+                        using (Pen penArrow = new Pen(Color.FromArgb(180, Color.White), 1))
+                        {
+                            gPath.AddLine(0, 0, 1.5f, 1);
+                            gPath.AddLine(0, 0, 1.5f, -1);
+                            float s = Math.Max(5, Math.Min(temp_rect.Width, temp_rect.Height) * 0.05f);
+                            s = 4;
+                            
+                            //Corners
+                            e.Graphics.TranslateTransform(temp_rect.X, temp_rect.Y);
+                            e.Graphics.ScaleTransform(s, s);
+                            e.Graphics.RotateTransform((float)(45));
+                            e.Graphics.DrawPath(penArrow, gPath);
+                            e.Graphics.ResetTransform();
+
+                            e.Graphics.TranslateTransform(temp_rect.X, temp_rect.Y + temp_rect.Height);
+                            e.Graphics.ScaleTransform(s, s);
+                            e.Graphics.RotateTransform((float)(-45));
+                            e.Graphics.DrawPath(penArrow, gPath);
+                            e.Graphics.ResetTransform();
+
+                            e.Graphics.TranslateTransform(temp_rect.X + temp_rect.Width, temp_rect.Y);
+                            e.Graphics.ScaleTransform(s, s);
+                            e.Graphics.RotateTransform((float)(135));
+                            e.Graphics.DrawPath(penArrow, gPath);
+                            e.Graphics.ResetTransform();
+
+                            e.Graphics.TranslateTransform(temp_rect.X + temp_rect.Width, temp_rect.Y + temp_rect.Height);
+                            e.Graphics.ScaleTransform(s, s);
+                            e.Graphics.RotateTransform((float)(-135));
+                            e.Graphics.DrawPath(penArrow, gPath);
+                            e.Graphics.ResetTransform();
+
+                            //Sides
+                            e.Graphics.TranslateTransform(temp_rect.X + temp_rect.Width / 2, temp_rect.Y);
+                            e.Graphics.ScaleTransform(s, s);
+                            e.Graphics.RotateTransform((float)(90));
+                            e.Graphics.DrawPath(penArrow, gPath);
+                            e.Graphics.ResetTransform();
+
+                            e.Graphics.TranslateTransform(temp_rect.X + temp_rect.Width / 2, temp_rect.Y + temp_rect.Height);
+                            e.Graphics.ScaleTransform(s, s);
+                            e.Graphics.RotateTransform((float)(-90));
+                            e.Graphics.DrawPath(penArrow, gPath);
+                            e.Graphics.ResetTransform();
+
+                            e.Graphics.TranslateTransform(temp_rect.X, temp_rect.Y + temp_rect.Height / 2);
+                            e.Graphics.ScaleTransform(s, s);
+                            e.Graphics.RotateTransform((float)(0));
+                            e.Graphics.DrawPath(penArrow, gPath);
+                            e.Graphics.ResetTransform();
+
+                            e.Graphics.TranslateTransform(temp_rect.X + temp_rect.Width, temp_rect.Y + temp_rect.Height / 2);
+                            e.Graphics.ScaleTransform(s, s);
+                            e.Graphics.RotateTransform((float)(180));
+                            e.Graphics.DrawPath(penArrow, gPath);
+                            e.Graphics.ResetTransform();
+                        }
+                    }
+                }
+                #endregion
+
             }
 
             //Draw guid lines

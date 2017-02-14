@@ -80,6 +80,8 @@
             this.mnuShowMouseGuid = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.pbMain = new bounding_box_annotation.boundaingbox();
+            this.mnuShowArrow = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -171,6 +173,8 @@
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuShowArrow,
+            this.toolStripSeparator8,
             this.mnuPenColor,
             this.toolStripMenuItem4,
             this.mnuPen2,
@@ -289,7 +293,7 @@
             // mnuMoveImageCenter
             // 
             this.mnuMoveImageCenter.Name = "mnuMoveImageCenter";
-            this.mnuMoveImageCenter.Size = new System.Drawing.Size(152, 22);
+            this.mnuMoveImageCenter.Size = new System.Drawing.Size(142, 22);
             this.mnuMoveImageCenter.Text = "Move Center";
             this.mnuMoveImageCenter.Click += new System.EventHandler(this.mnuMoveImageCenter_Click);
             // 
@@ -438,6 +442,7 @@
             // mnuSave
             // 
             this.mnuSave.Name = "mnuSave";
+            this.mnuSave.ShortcutKeyDisplayString = "S";
             this.mnuSave.Size = new System.Drawing.Size(164, 22);
             this.mnuSave.Text = "Save";
             this.mnuSave.Click += new System.EventHandler(this.mnuSave_Click);
@@ -478,9 +483,9 @@
             // 
             // pbMain
             // 
-            this.pbMain.BackColor = System.Drawing.Color.White;
+            this.pbMain.BackColor = System.Drawing.Color.Black;
             this.pbMain.Bitmap = null;
-            this.pbMain.BoundingBoxPenColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pbMain.BoundingBoxPenColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(0)))), ((int)(((byte)(128)))));
             this.pbMain.BoundingBoxPenWidth = 2F;
             this.pbMain.BoundingBoxTransparency = ((byte)(255));
             this.pbMain.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -492,6 +497,21 @@
             this.pbMain.Size = new System.Drawing.Size(580, 470);
             this.pbMain.TabIndex = 2;
             this.pbMain.ScaleChanged += new bounding_box_annotation.boundaingbox.ScaleEventHandler(this.pbMain_ScaleChanged);
+            // 
+            // mnuShowArrow
+            // 
+            this.mnuShowArrow.Checked = true;
+            this.mnuShowArrow.CheckOnClick = true;
+            this.mnuShowArrow.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.mnuShowArrow.Name = "mnuShowArrow";
+            this.mnuShowArrow.Size = new System.Drawing.Size(192, 22);
+            this.mnuShowArrow.Text = "Show arrows";
+            this.mnuShowArrow.Click += new System.EventHandler(this.mnuShowArrow_Click);
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(189, 6);
             // 
             // FrmMain
             // 
@@ -575,6 +595,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripMenuItem mnuShowMouseGuid;
+        private System.Windows.Forms.ToolStripMenuItem mnuShowArrow;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
     }
 }
 

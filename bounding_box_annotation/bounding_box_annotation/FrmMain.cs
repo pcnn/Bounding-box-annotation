@@ -307,5 +307,10 @@ namespace bounding_box_annotation
             mnuShowMouseGuid.Checked = !mnuShowMouseGuid.Checked;
             pbMain.ShowMouseGuid = mnuShowMouseGuid.Checked;
         }
+
+        private void mnuShowArrow_Click(object sender, EventArgs e)
+        {
+            pbMain.ShowArrows = mnuShowArrow.Checked;
+        }
     }   
 }
