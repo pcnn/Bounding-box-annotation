@@ -13,7 +13,6 @@ namespace bounding_box_annotation
     public partial class FrmMain : Form
     {
         bool has_changed = false;
-        
         public FrmMain()
         {
             InitializeComponent();
@@ -53,27 +52,29 @@ namespace bounding_box_annotation
                 return;
             }
             pbMain.Clear();
+            pbMain.Scale = 1.0f;
             pbMain.ImageLocation = lbFiles.Tag.ToString() + "\\"+ lbFiles.SelectedItem.ToString();
             stLblImage.Text = string.Format("Size of image (WxH): {0}x{1}", pbMain.Bitmap.Width, pbMain.Bitmap.Height);
-            if (File.Exists(Path.GetDirectoryName(pbMain.ImageLocation) + "\\" + Path.GetFileNameWithoutExtension(pbMain.ImageLocation) + ".txt"))
+            string name, filePath;
+            GetAnnotationFilePath(out name, out filePath);
+            if (System.IO.File.Exists(filePath))
             {
-                System.IO.StreamReader sr = new StreamReader(Path.GetDirectoryName(pbMain.ImageLocation) + "\\" + Path.GetFileNameWithoutExtension(pbMain.ImageLocation) + ".txt");
-                string str = sr.ReadToEnd();
-                sr.Close();
-                if (str.IndexOf("chal=0") >= 0)
+                using (System.IO.StreamReader sr = new StreamReader(filePath))
                 {
-                    
+                    sr.ReadLine();
+                    string row;
+                    while (!sr.EndOfStream)
+                    {
+                        row = sr.ReadLine();
+                        string[] splits = row.Split(';');
+                        pbMain.Items.Add(new BoundingBox(float.Parse(splits[1]),
+                                                         float.Parse(splits[2]),
+                                                         float.Parse(splits[3]),
+                                                         float.Parse(splits[4]),
+                                                         splits[5]));
+                        pbMain.Refresh();
+                    }
                 }
-                else if (str.IndexOf("chal=1") >= 0)
-                {
-                    
-                }
-                
-            }
-            else
-            {
-                
-                
             }
         }
 
@@ -81,8 +82,8 @@ namespace bounding_box_annotation
 
         private void mnuSave_Click(object sender, EventArgs e)
         {
-            /*bool save_flag = true;
-            if (pbMain.OriginalImage == null)
+            bool save_flag = true;
+            if (pbMain.Bitmap == null)
             {
                 return;
             }
@@ -91,13 +92,35 @@ namespace bounding_box_annotation
                 save_flag = MessageBox.Show("Are you sure to overwrite the image?", "confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.Yes;
             }
             if (save_flag)
-            {                
-                string path = pbMain.ImageLocation;
-                string temp_path = Application.StartupPath + "\\" + "temp" + Path.GetExtension(path);
-                pbMain.OriginalImage.Save(temp_path);
-                System.IO.File.Copy(temp_path,path,true);
+            {
+                string name;
+                string save_to;
+                GetAnnotationFilePath(out name, out save_to);
+                using (StreamWriter sw = new StreamWriter(save_to))
+                {
+                    sw.WriteLine("filename;x;y;width;height;label");
+                    for (int i = 0; i < pbMain.Items.Count; i++)
+                    {
+                        sw.WriteLine(string.Format("{0};{1};{2};{3};{4};{5}",
+                                     name,
+                                     pbMain.Items[i].BB.X,
+                                     pbMain.Items[i].BB.Y,
+                                     pbMain.Items[i].BB.Width,
+                                     pbMain.Items[i].BB.Height,
+                                     pbMain.Items[i].ClassLabel));
+                    }
+                    sw.Flush();
+                    
+                }
                 has_changed = false;
-            }*/
+            }
+        }
+
+        private void GetAnnotationFilePath(out string name, out string filePath)
+        {
+            string path = pbMain.ImageLocation;
+            name = System.IO.Path.GetFileNameWithoutExtension(path);
+            filePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(path), name + ".txt");
         }
 
         private void mnuApplyCrop_Click(object sender, EventArgs e)
@@ -146,6 +169,10 @@ namespace bounding_box_annotation
             else if (e.KeyChar == (char)Keys.D4 || e.KeyChar == 'a' || e.KeyChar == 'A')
             {
                 mnuPrev.PerformClick();
+            }
+            else if (e.KeyChar == 's' || e.KeyChar == 'S')
+            {
+                mnuSave.PerformClick();
             }
         }
 
@@ -235,6 +262,7 @@ namespace bounding_box_annotation
         private void mnuZoom_Click(object sender, EventArgs e)
         {
             pbMain.Scale = Convert.ToSingle(((ToolStripMenuItem)sender).Tag)/100;
+            
         }
 
         private void mnuZoomDropdown_TextChanged(object sender, EventArgs e)
@@ -267,6 +295,11 @@ namespace bounding_box_annotation
         {
             FrmAbout frm = new FrmAbout();
             frm.ShowDialog();
+        }
+
+        private void pbMain_ScaleChanged(object sender, float scale)
+        {
+            btnStatusZoom.Text = string.Format("Zoom ({0:f2}%)", scale*100);
         }
     }   
 }

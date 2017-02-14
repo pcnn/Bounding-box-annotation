@@ -58,11 +58,10 @@
             this.lbFiles = new System.Windows.Forms.ListBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.pbMain = new bounding_box_annotation.boundaingbox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.stLblImage = new System.Windows.Forms.ToolStripStatusLabel();
             this.stsLblCropsize = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.btnStatusZoom = new System.Windows.Forms.ToolStripDropDownButton();
             this.mnuZoom300 = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuZoom200 = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuzoom100 = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,6 +73,11 @@
             this.mnuZoomBestFit = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.mnuAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuSave = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.pbMain = new bounding_box_annotation.boundaingbox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -104,6 +108,9 @@
             this.mnuPrev,
             this.toolStripMenuItem2,
             this.mnuDelete,
+            this.toolStripSeparator1,
+            this.mnuSave,
+            this.toolStripSeparator5,
             this.mnuExit});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -171,6 +178,7 @@
             this.toolStripMenuItem6,
             this.toolStripSeparator2,
             this.mnuConfirm,
+            this.toolStripSeparator6,
             this.mnuManageClass});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
@@ -315,27 +323,12 @@
             this.splitContainer1.SplitterDistance = 580;
             this.splitContainer1.TabIndex = 3;
             // 
-            // pbMain
-            // 
-            this.pbMain.BackColor = System.Drawing.Color.White;
-            this.pbMain.Bitmap = null;
-            this.pbMain.BoundingBoxPenColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.pbMain.BoundingBoxPenWidth = 2F;
-            this.pbMain.BoundingBoxTransparency = ((byte)(255));
-            this.pbMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pbMain.ImageLocation = "";
-            this.pbMain.Location = new System.Drawing.Point(0, 0);
-            this.pbMain.Name = "pbMain";
-            this.pbMain.Scale = 1F;
-            this.pbMain.Size = new System.Drawing.Size(580, 470);
-            this.pbMain.TabIndex = 2;
-            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.stLblImage,
             this.stsLblCropsize,
-            this.toolStripDropDownButton1});
+            this.btnStatusZoom});
             this.statusStrip1.Location = new System.Drawing.Point(0, 470);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(580, 22);
@@ -354,10 +347,10 @@
             this.stsLblCropsize.Size = new System.Drawing.Size(10, 17);
             this.stsLblCropsize.Text = " ";
             // 
-            // toolStripDropDownButton1
+            // btnStatusZoom
             // 
-            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnStatusZoom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnStatusZoom.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuZoom300,
             this.mnuZoom200,
             this.mnuzoom100,
@@ -367,11 +360,11 @@
             this.mnuZoomDropdown,
             this.toolStripSeparator4,
             this.mnuZoomBestFit});
-            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(52, 20);
-            this.toolStripDropDownButton1.Text = "Zoom";
+            this.btnStatusZoom.Image = ((System.Drawing.Image)(resources.GetObject("btnStatusZoom.Image")));
+            this.btnStatusZoom.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnStatusZoom.Name = "btnStatusZoom";
+            this.btnStatusZoom.Size = new System.Drawing.Size(52, 20);
+            this.btnStatusZoom.Text = "Zoom";
             // 
             // mnuZoom300
             // 
@@ -443,6 +436,44 @@
             this.mnuAbout.Text = "About";
             this.mnuAbout.Click += new System.EventHandler(this.mnuAbout_Click);
             // 
+            // mnuSave
+            // 
+            this.mnuSave.Name = "mnuSave";
+            this.mnuSave.Size = new System.Drawing.Size(164, 22);
+            this.mnuSave.Text = "Save";
+            this.mnuSave.Click += new System.EventHandler(this.mnuSave_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(161, 6);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(161, 6);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(189, 6);
+            // 
+            // pbMain
+            // 
+            this.pbMain.BackColor = System.Drawing.Color.White;
+            this.pbMain.Bitmap = null;
+            this.pbMain.BoundingBoxPenColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pbMain.BoundingBoxPenWidth = 2F;
+            this.pbMain.BoundingBoxTransparency = ((byte)(255));
+            this.pbMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbMain.ImageLocation = "";
+            this.pbMain.Location = new System.Drawing.Point(0, 0);
+            this.pbMain.Name = "pbMain";
+            this.pbMain.Scale = 1F;
+            this.pbMain.Size = new System.Drawing.Size(580, 470);
+            this.pbMain.TabIndex = 2;
+            this.pbMain.ScaleChanged += new bounding_box_annotation.boundaingbox.ScaleEventHandler(this.pbMain_ScaleChanged);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -506,7 +537,7 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel stLblImage;
         private System.Windows.Forms.ToolStripStatusLabel stsLblCropsize;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripDropDownButton btnStatusZoom;
         private System.Windows.Forms.ToolStripMenuItem mnuZoom300;
         private System.Windows.Forms.ToolStripMenuItem mnuZoom200;
         private System.Windows.Forms.ToolStripMenuItem mnuzoom100;
@@ -518,6 +549,10 @@
         private System.Windows.Forms.ToolStripMenuItem mnuZoomBestFit;
         private System.Windows.Forms.ToolStripMenuItem mnuManageClass;
         private System.Windows.Forms.ToolStripMenuItem mnuAbout;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem mnuSave;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
     }
 }
 

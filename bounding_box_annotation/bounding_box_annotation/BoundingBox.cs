@@ -17,8 +17,11 @@ namespace bounding_box_annotation
             get { return this.isEmpty; }
             set { this.isEmpty = value; }
         }
-        
-       
+
+        public BoundingBox(float x, float y, float width, float height, string classLabel = ""):this(new RectangleF(x, y, width, height), classLabel)
+        {            
+        }
+
         public BoundingBox(RectangleF rect, string classLabel = "")
         {
             this.rect = rect;

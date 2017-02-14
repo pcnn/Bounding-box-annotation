@@ -89,7 +89,18 @@ namespace bounding_box_annotation
         RectangleF imageRect;
         BoundingBox bb;
         DrawingState drawingState;
+        bool is_ctrl_down;
+        public delegate void ScaleEventHandler(object sender, float scale);
 
+        public event ScaleEventHandler ScaleChanged;
+
+        public List<BoundingBox> Items
+        {
+            get
+            {
+                return this.list_bbs;
+            }
+        }
         public float BoundingBoxPenWidth
         {
             get
@@ -165,6 +176,10 @@ namespace bounding_box_annotation
             {
                 this.scale = value;
                 UpdateImage();
+                if (ScaleChanged != null)
+                {                    
+                    ScaleChanged(this, this.scale);
+                }
             }
         }
 
@@ -231,6 +246,35 @@ namespace bounding_box_annotation
             base.OnClick(e);
             selected_bb_index = current_bb_index;
         }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+            is_ctrl_down = e.Control;
+            
+        }
+        protected override void OnKeyUp(KeyEventArgs e)
+        {
+            base.OnKeyUp(e);
+            is_ctrl_down = e.Control;
+        }
+
+        protected override void OnMouseWheel(MouseEventArgs e)
+        {
+            base.OnMouseWheel(e);
+            if (is_ctrl_down)
+            {
+                if (e.Delta < 0)
+                {
+                    this.Scale *= 0.95f;                                        
+                }
+                else if (e.Delta > 0)
+                {
+                    this.Scale *= 1.05f;                    
+                }
+            }    
+        }
+
         protected override void OnMouseDown(MouseEventArgs e)
         {
             base.OnMouseDown(e);
