@@ -25,7 +25,8 @@ namespace bounding_box_annotation
             imageRect = RectangleF.Empty;
             penBB = new Pen(new SolidBrush(Color.FromArgb(255, 255, 0, 0)), 2);            
             penGuidLine = new Pen(new SolidBrush(Color.FromArgb(200, 127, 127, 127)), 1);
-            penMouseGuid = new Pen(new SolidBrush(Color.FromArgb(200, 255, 0, 0)), 1);
+            penMouseGuid = new Pen(new SolidBrush(penBB.Color), 1);
+            this.show_mouse_guid = true;
 
             drawingState = DrawingState.None;
 
@@ -90,9 +91,24 @@ namespace bounding_box_annotation
         BoundingBox bb;
         DrawingState drawingState;
         bool is_ctrl_down;
+        bool show_mouse_guid;
+
         public delegate void ScaleEventHandler(object sender, float scale);
 
         public event ScaleEventHandler ScaleChanged;
+
+        public bool ShowMouseGuid
+        {
+            get
+            {
+                return this.show_mouse_guid;
+            }
+            set
+            {
+                this.show_mouse_guid = value;
+                this.Refresh();
+            }
+        }
 
         public List<BoundingBox> Items
         {
@@ -124,6 +140,7 @@ namespace bounding_box_annotation
             set
             {
                 this.penBB.Color = value;
+                this.penMouseGuid.Color = value;
                 this.Refresh();
             }
         }
@@ -521,7 +538,7 @@ namespace bounding_box_annotation
             e.Graphics.DrawLine(penGuidLine, y1: imageRect.Y + imageRect.Height, y2: imageRect.Y + imageRect.Height, x1: 0, x2: this.Width);
 
             //Draw mouse guids
-            if (!ptMouseLocation.IsEmpty)
+            if (!ptMouseLocation.IsEmpty && this.show_mouse_guid)
             {
                 e.Graphics.DrawLine(penMouseGuid, x1: ptMouseLocation.X, x2: ptMouseLocation.X, y1: 0, y2: this.Height);
                 e.Graphics.DrawLine(penMouseGuid, y1: ptMouseLocation.Y, y2: ptMouseLocation.Y, x1: 0, x2: this.Width);

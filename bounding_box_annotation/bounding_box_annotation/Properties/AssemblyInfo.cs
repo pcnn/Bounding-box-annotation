@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Bounding box annotation tool")]
-[assembly: AssemblyDescription("The tool provided in this repository can be used for annotating bounding box of objects in images of any size.")]
+[assembly: AssemblyDescription("The tool provided in this repository can be used for annotating bounding box of objects in images of any size. Icon is taken from http://www.flaticon.com.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Developed by Hamed H. Aghdam")]
 [assembly: AssemblyProduct("Bounding box annotation tool")]

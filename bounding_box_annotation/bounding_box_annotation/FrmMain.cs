@@ -301,5 +301,11 @@ namespace bounding_box_annotation
         {
             btnStatusZoom.Text = string.Format("Zoom ({0:f2}%)", scale*100);
         }
+
+        private void mnuShowMouseGuid_Click(object sender, EventArgs e)
+        {
+            mnuShowMouseGuid.Checked = !mnuShowMouseGuid.Checked;
+            pbMain.ShowMouseGuid = mnuShowMouseGuid.Checked;
+        }
     }   
 }

@@ -45,7 +45,6 @@
             this.mnuPen2 = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuPen3 = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuPen4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuTran127 = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuTran200 = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,6 +76,9 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuShowMouseGuid = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.pbMain = new bounding_box_annotation.boundaingbox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -176,6 +178,8 @@
             this.mnuPen4,
             this.toolStripMenuItem5,
             this.toolStripMenuItem6,
+            this.toolStripSeparator7,
+            this.mnuShowMouseGuid,
             this.toolStripSeparator2,
             this.mnuConfirm,
             this.toolStripSeparator6,
@@ -219,11 +223,6 @@
             this.mnuPen4.Text = "Pen width 4";
             this.mnuPen4.Click += new System.EventHandler(this.mnuPen4_Click);
             // 
-            // toolStripMenuItem5
-            // 
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(189, 6);
-            // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -232,7 +231,7 @@
             this.mnuTran255});
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
             this.toolStripMenuItem6.Size = new System.Drawing.Size(192, 22);
-            this.toolStripMenuItem6.Text = "Transparency";
+            this.toolStripMenuItem6.Text = "Pen transparency";
             // 
             // mnuTran127
             // 
@@ -290,7 +289,7 @@
             // mnuMoveImageCenter
             // 
             this.mnuMoveImageCenter.Name = "mnuMoveImageCenter";
-            this.mnuMoveImageCenter.Size = new System.Drawing.Size(142, 22);
+            this.mnuMoveImageCenter.Size = new System.Drawing.Size(152, 22);
             this.mnuMoveImageCenter.Text = "Move Center";
             this.mnuMoveImageCenter.Click += new System.EventHandler(this.mnuMoveImageCenter_Click);
             // 
@@ -458,6 +457,25 @@
             this.toolStripSeparator6.Name = "toolStripSeparator6";
             this.toolStripSeparator6.Size = new System.Drawing.Size(189, 6);
             // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(189, 6);
+            // 
+            // mnuShowMouseGuid
+            // 
+            this.mnuShowMouseGuid.Checked = true;
+            this.mnuShowMouseGuid.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.mnuShowMouseGuid.Name = "mnuShowMouseGuid";
+            this.mnuShowMouseGuid.Size = new System.Drawing.Size(192, 22);
+            this.mnuShowMouseGuid.Text = "Show mouse guid";
+            this.mnuShowMouseGuid.Click += new System.EventHandler(this.mnuShowMouseGuid_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(189, 6);
+            // 
             // pbMain
             // 
             this.pbMain.BackColor = System.Drawing.Color.White;
@@ -470,6 +488,7 @@
             this.pbMain.Location = new System.Drawing.Point(0, 0);
             this.pbMain.Name = "pbMain";
             this.pbMain.Scale = 1F;
+            this.pbMain.ShowMouseGuid = true;
             this.pbMain.Size = new System.Drawing.Size(580, 470);
             this.pbMain.TabIndex = 2;
             this.pbMain.ScaleChanged += new bounding_box_annotation.boundaingbox.ScaleEventHandler(this.pbMain_ScaleChanged);
@@ -482,6 +501,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.DoubleBuffered = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FrmMain";
@@ -523,7 +543,6 @@
         private System.Windows.Forms.ToolStripMenuItem mnuPen3;
         private System.Windows.Forms.ToolStripMenuItem mnuPen4;
         private System.Windows.Forms.ToolStripMenuItem mnuExit;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
         private System.Windows.Forms.ToolStripMenuItem mnuConfirm;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
         private System.Windows.Forms.ToolStripMenuItem mnuTran127;
@@ -553,6 +572,9 @@
         private System.Windows.Forms.ToolStripMenuItem mnuSave;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripMenuItem mnuShowMouseGuid;
     }
 }
 
