@@ -322,7 +322,28 @@ namespace bounding_box_annotation
             base.OnKeyUp(e);
             is_ctrl_down = e.Control;
         }
+        protected override void OnPreviewKeyDown(PreviewKeyDownEventArgs e)
+        {
+            base.OnPreviewKeyDown(e);
+            if (e.KeyCode == Keys.Tab)
+            {
+                selected_bb_index = Math.Max(0, selected_bb_index + 1);
+                if (selected_bb_index >= list_bbs.Count)
+                {
+                    selected_bb_index = -1;
+                }
+                e.IsInputKey = true;
+                this.Refresh();
 
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                selected_bb_index = -1;
+                this.Refresh();
+            }
+            
+        }
+        
         protected override void OnMouseWheel(MouseEventArgs e)
         {
             base.OnMouseWheel(e);
