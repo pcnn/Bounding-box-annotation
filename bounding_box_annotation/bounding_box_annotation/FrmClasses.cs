@@ -19,14 +19,22 @@ namespace bounding_box_annotation
                 {
                     return lbLabels.SelectedItem.ToString();
                 }
-                else
+                else if(lbRecent.SelectedIndex >= 0)
                 {
-                    return "";
+                    return lbRecent.SelectedItem.ToString();
                 }
+                else
+                    return "";
             }
             set {
                 selectedLabe = value.Trim(); ;
             }
+        }
+
+        public void SetRecentLabel(List<string> labels)
+        {
+            lbRecent.Items.Clear();
+            lbRecent.Items.AddRange(labels.ToArray());
         }
 
         public FrmClasses()
@@ -52,15 +60,30 @@ namespace bounding_box_annotation
             }
             
         }
-
-        private void btnSelect_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
+        
         private void lbLabels_DoubleClick(object sender, EventArgs e)
         {
-            btnSelect.PerformClick();
+            this.DialogResult = System.Windows.Forms.DialogResult.Yes;
+            
+        }
+
+        private void lbLabels_SelectedIndexChanges(object sender, EventArgs e)
+        {
+            if (sender == lbLabels)
+            {
+                if(lbLabels.SelectedIndex >= 0)
+                    lbRecent.ClearSelected();
+            }
+            else if (sender == lbRecent)
+            {
+                if (lbRecent.SelectedIndex >= 0)
+                    lbLabels.ClearSelected();
+            }
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = System.Windows.Forms.DialogResult.No;
         }
     }
 }

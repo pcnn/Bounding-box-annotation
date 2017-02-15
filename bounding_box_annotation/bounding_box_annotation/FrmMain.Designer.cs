@@ -79,9 +79,9 @@
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuShowMouseGuid = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.pbMain = new bounding_box_annotation.boundaingbox();
             this.mnuShowArrow = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.pbMain = new bounding_box_annotation.boundaingbox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -303,7 +303,7 @@
             this.lbFiles.FormattingEnabled = true;
             this.lbFiles.Location = new System.Drawing.Point(0, 0);
             this.lbFiles.Name = "lbFiles";
-            this.lbFiles.Size = new System.Drawing.Size(214, 492);
+            this.lbFiles.Size = new System.Drawing.Size(172, 492);
             this.lbFiles.TabIndex = 2;
             this.lbFiles.SelectedIndexChanged += new System.EventHandler(this.lbFiles_DoubleClick);
             this.lbFiles.DoubleClick += new System.EventHandler(this.lbFiles_DoubleClick);
@@ -323,7 +323,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.lbFiles);
             this.splitContainer1.Size = new System.Drawing.Size(798, 492);
-            this.splitContainer1.SplitterDistance = 580;
+            this.splitContainer1.SplitterDistance = 622;
             this.splitContainer1.TabIndex = 3;
             // 
             // statusStrip1
@@ -334,7 +334,7 @@
             this.btnStatusZoom});
             this.statusStrip1.Location = new System.Drawing.Point(0, 470);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(580, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(622, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -481,6 +481,19 @@
             this.toolStripSeparator7.Name = "toolStripSeparator7";
             this.toolStripSeparator7.Size = new System.Drawing.Size(189, 6);
             // 
+            // mnuShowArrow
+            // 
+            this.mnuShowArrow.CheckOnClick = true;
+            this.mnuShowArrow.Name = "mnuShowArrow";
+            this.mnuShowArrow.Size = new System.Drawing.Size(192, 22);
+            this.mnuShowArrow.Text = "Show arrows";
+            this.mnuShowArrow.Click += new System.EventHandler(this.mnuShowArrow_Click);
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(189, 6);
+            // 
             // pbMain
             // 
             this.pbMain.BackColor = System.Drawing.Color.Black;
@@ -493,25 +506,11 @@
             this.pbMain.Location = new System.Drawing.Point(0, 0);
             this.pbMain.Name = "pbMain";
             this.pbMain.Scale = 1F;
+            this.pbMain.ShowArrows = false;
             this.pbMain.ShowMouseGuid = true;
-            this.pbMain.Size = new System.Drawing.Size(580, 470);
+            this.pbMain.Size = new System.Drawing.Size(622, 470);
             this.pbMain.TabIndex = 2;
             this.pbMain.ScaleChanged += new bounding_box_annotation.boundaingbox.ScaleEventHandler(this.pbMain_ScaleChanged);
-            // 
-            // mnuShowArrow
-            // 
-            this.mnuShowArrow.Checked = true;
-            this.mnuShowArrow.CheckOnClick = true;
-            this.mnuShowArrow.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.mnuShowArrow.Name = "mnuShowArrow";
-            this.mnuShowArrow.Size = new System.Drawing.Size(192, 22);
-            this.mnuShowArrow.Text = "Show arrows";
-            this.mnuShowArrow.Click += new System.EventHandler(this.mnuShowArrow_Click);
-            // 
-            // toolStripSeparator8
-            // 
-            this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(189, 6);
             // 
             // FrmMain
             // 

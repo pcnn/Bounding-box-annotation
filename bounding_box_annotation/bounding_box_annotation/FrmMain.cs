@@ -209,6 +209,7 @@ namespace bounding_box_annotation
         {
             mnuPen3.PerformClick();
             mnuTran200.PerformClick();
+            mnuShowArrow.PerformClick();
         }
 
         private void mnuExit_Click(object sender, EventArgs e)

@@ -29,6 +29,7 @@ namespace bounding_box_annotation
             penMouseGuid = new Pen(new SolidBrush(penBB.Color), 1);
             this.show_mouse_guid = true;
             this.showArros = true;
+            listRecentLabels = new List<string>();
 
             drawingState = DrawingState.None;
 
@@ -99,11 +100,13 @@ namespace bounding_box_annotation
         bool is_ctrl_down;
         bool show_mouse_guid;
         bool showArros;
+        List<string> listRecentLabels;
 
         public delegate void ScaleEventHandler(object sender, float scale);
 
         public event ScaleEventHandler ScaleChanged;
 
+        #region Properties
         [Description("Show arrows on bounding boxes")]
         public bool ShowArrows
         {
@@ -139,6 +142,7 @@ namespace bounding_box_annotation
                 return this.list_bbs;
             }
         }
+       
         public float BoundingBoxPenWidth
         {
             get
@@ -177,6 +181,7 @@ namespace bounding_box_annotation
                 this.Refresh();
             }
         }
+       
         public string ImageLocation
         {
             get { return this.imageLocation; }
@@ -195,6 +200,7 @@ namespace bounding_box_annotation
                 }
             }
         }
+        
         public Bitmap Bitmap
         {
             get { return this.bmp_canvas; }
@@ -220,6 +226,25 @@ namespace bounding_box_annotation
                     ScaleChanged(this, this.scale);
                 }
             }
+        }
+        #endregion
+
+        private void UpdateRecentLabels(string label)
+        {
+            if (label.Trim().Length == 0)
+            {
+                return;
+            }
+
+            listRecentLabels.Insert(0, label);
+            for (int i = 1; i < listRecentLabels.Count; i++)
+            {
+                if (label.Trim()  == listRecentLabels[i].Trim())
+                {
+                    listRecentLabels.RemoveAt(i);                                       
+                    break;
+                }
+            }            
         }
 
         public void RemoveSelected()
@@ -569,11 +594,15 @@ namespace bounding_box_annotation
                     if (!bb.BB.IsEmpty && bb.BB.Width > 2 && bb.BB.Height>2)
                     {
                         FrmClasses frm = new FrmClasses();
+                        frm.SetRecentLabel(listRecentLabels);
                         frm.StartPosition = FormStartPosition.Manual;
                         frm.Left = e.X;
                         frm.Top = e.Y;
-                        frm.ShowDialog();
-                        bb.ClassLabel = frm.SelectedLabel;
+                        if (frm.ShowDialog() == DialogResult.Yes)
+                        {
+                            bb.ClassLabel = frm.SelectedLabel;                            
+                        }
+                        UpdateRecentLabels(bb.ClassLabel);
                         list_bbs.Add(bb);
                         bb.BB = Rectangle.Empty;
                         drawingState = DrawingState.None;
@@ -714,13 +743,17 @@ namespace bounding_box_annotation
             {
                 FrmClasses frm = new FrmClasses();
                 frm.StartPosition = FormStartPosition.Manual;
+                frm.SetRecentLabel(listRecentLabels);
                 frm.Left = (int)list_bbs[selected_bb_index].BB.Right;
                 frm.Top = (int)list_bbs[selected_bb_index].BB.Bottom;
                 frm.SelectedLabel = list_bbs[selected_bb_index].ClassLabel;
-                frm.ShowDialog();
-                BoundingBox bb = list_bbs[selected_bb_index];
-                bb.ClassLabel = frm.SelectedLabel;
-                list_bbs[selected_bb_index] = bb;
+                if (frm.ShowDialog() == DialogResult.Yes)
+                {
+                    BoundingBox bb = list_bbs[selected_bb_index];
+                    bb.ClassLabel = frm.SelectedLabel;
+                    UpdateRecentLabels(bb.ClassLabel);
+                    list_bbs[selected_bb_index] = bb;
+                }
             }
         }
     }
