@@ -140,5 +140,17 @@ namespace bounding_box_annotation
             return temp;
 
         }
+
+        public override string ToString()
+        {
+            if (this.classLabel.Count > 0)
+            {
+                return string.Join(",", this.classLabel);
+            }
+            else
+            {
+                return "unknown";
+            }
+        }
     }
 }

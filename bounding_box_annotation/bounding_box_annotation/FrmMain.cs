@@ -63,6 +63,7 @@ namespace bounding_box_annotation
                 {
                     sr.ReadLine();
                     string row;
+                    List<BoundingBox> list_temp = new List<BoundingBox>();
                     while (!sr.EndOfStream)
                     {
                         row = sr.ReadLine();
@@ -70,15 +71,17 @@ namespace bounding_box_annotation
                         List<string> labels = new List<string>();
                         for (int i = 5; i < splits.Length; i++)
                         {
-                            labels.Add(splits[i]);
+                            if (splits[i].Length > 0)
+                                labels.Add(splits[i]);
                         }
-                        pbMain.Items.Add(new BoundingBox(float.Parse(splits[1]),
+                        list_temp.Add(new BoundingBox(float.Parse(splits[1]),
                                                          float.Parse(splits[2]),
                                                          float.Parse(splits[3]),
                                                          float.Parse(splits[4]),
-                                                         labels.ToArray()));
-                        pbMain.Refresh();
+                                                         labels.ToArray()));                        
                     }
+
+                   this.pbMain.Items = list_temp;
                 }
             }
         }
@@ -107,10 +110,17 @@ namespace bounding_box_annotation
                     for (int i = 0; i < pbMain.Items.Count; i++)
                     {
                         string labels = "";
-                        for (int _ = 0; _ < pbMain.Items[i].ClassLabel.Length; _++)
+                        for (int ii = 0; ii < pbMain.Items[i].ClassLabel.Length; ii++)
                         {
+                            if (pbMain.Items[i].ClassLabel[ii].Length > 0)
+                            {
+                                if (ii > 0)
+                                    labels += ";" + pbMain.Items[i].ClassLabel[ii];
+                                else
+                                    labels += pbMain.Items[i].ClassLabel[ii];
+                            }
+                            
 
-                            labels += ";" + pbMain.Items[i].ClassLabel[_];
                         }
                         sw.WriteLine(string.Format("{0};{1};{2};{3};{4};{5}",
                                      name,
@@ -134,17 +144,7 @@ namespace bounding_box_annotation
             filePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(path), name + ".txt");
         }
 
-        private void mnuApplyCrop_Click(object sender, EventArgs e)
-        {
-           /* if (pbMain.OriginalImage == null)
-            {
-                return;
-            }
-            AForge.Imaging.Filters.Crop crp = new AForge.Imaging.Filters.Crop(pbMain.CropRectangle);
-            pbMain.OriginalImage = crp.Apply((Bitmap)pbMain.OriginalImage);
-            has_changed = true;*/
-        }
-
+        
         private void mnuNext_Click(object sender, EventArgs e)
         {
             if (lbFiles.SelectedIndex < lbFiles.Items.Count-1)
@@ -247,18 +247,20 @@ namespace bounding_box_annotation
 
         private void mnuDelete_Click(object sender, EventArgs e)
         {
-            /*if (File.Exists(pbMain.ImageLocation))
+            if (File.Exists(pbMain.ImageLocation))
             {
                 if (MessageBox.Show("Are you sure to delete the image?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    File.Delete(pbMain.ImageLocation);
-                    int cur_ind = lbFiles.SelectedIndex;
-                    lbFiles.Items.RemoveAt(lbFiles.SelectedIndex);
-                    lbFiles.SelectedIndex = cur_ind;
-                    //lbFiles_DoubleClick(sender, e);
+                    if (pbMain.Bitmap != null)
+                    {
+                        File.Delete(pbMain.ImageLocation);
+                        int cur_ind = lbFiles.SelectedIndex;
+                        lbFiles.Items.RemoveAt(lbFiles.SelectedIndex);
+                        lbFiles.SelectedIndex = cur_ind;
+                    }
                     
                 }
-            }*/
+            }
         }
 
         private void pbMain_CropChanged(object sender, EventArgs e)
@@ -323,6 +325,25 @@ namespace bounding_box_annotation
         private void mnuShowArrow_Click(object sender, EventArgs e)
         {
             pbMain.ShowArrows = mnuShowArrow.Checked;
+        }
+
+        private void pbMain_BoundingBoxListChanged(object sender, EventArgs e)
+        {
+            lbBBs.Items.Clear();            
+            for (int i = 0; i < pbMain.Items.Count; i++)
+            {
+                lbBBs.Items.Add(pbMain.Items[i].ToString());
+            }
+        }
+
+        private void pbMain_SelectedBoundingBoxeIndexChanged(object sender, EventArgs e)
+        {
+            this.lbBBs.SelectedIndex = pbMain.SelectedBoundingBoxIndex;
+        }
+
+        private void lbBBs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.pbMain.SelectWithoutRaisingEven(lbBBs.SelectedIndex);
         }
     }   
 }

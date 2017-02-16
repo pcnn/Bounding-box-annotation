@@ -38,25 +38,36 @@
             this.mnuPrev = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuSave = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuShowArrow = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuPenColor = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuPen2 = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuPen3 = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuPen4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuTran127 = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuTran200 = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuTran255 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuShowMouseGuid = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuConfirm = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuManageClass = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMoveImageCenter = new System.Windows.Forms.ToolStripMenuItem();
-            this.lbFiles = new System.Windows.Forms.ListBox();
+            this.mnuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.pbMain = new bounding_box_annotation.boundaingbox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.stLblImage = new System.Windows.Forms.ToolStripStatusLabel();
             this.stsLblCropsize = new System.Windows.Forms.ToolStripStatusLabel();
@@ -70,24 +81,23 @@
             this.mnuZoomDropdown = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuZoomBestFit = new System.Windows.Forms.ToolStripMenuItem();
-            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.mnuAbout = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuSave = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
-            this.mnuShowMouseGuid = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.mnuShowArrow = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
-            this.pbMain = new bounding_box_annotation.boundaingbox();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lbFiles = new System.Windows.Forms.ListBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lbBBs = new System.Windows.Forms.ListBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -158,9 +168,27 @@
             // 
             this.mnuDelete.Name = "mnuDelete";
             this.mnuDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.mnuDelete.Size = new System.Drawing.Size(164, 22);
-            this.mnuDelete.Text = "Delete";
+            this.mnuDelete.Size = new System.Drawing.Size(167, 22);
+            this.mnuDelete.Text = "Delete image";
             this.mnuDelete.Click += new System.EventHandler(this.mnuDelete_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(161, 6);
+            // 
+            // mnuSave
+            // 
+            this.mnuSave.Name = "mnuSave";
+            this.mnuSave.ShortcutKeyDisplayString = "S";
+            this.mnuSave.Size = new System.Drawing.Size(164, 22);
+            this.mnuSave.Text = "Save";
+            this.mnuSave.Click += new System.EventHandler(this.mnuSave_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(161, 6);
             // 
             // mnuExit
             // 
@@ -191,6 +219,19 @@
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
+            // 
+            // mnuShowArrow
+            // 
+            this.mnuShowArrow.CheckOnClick = true;
+            this.mnuShowArrow.Name = "mnuShowArrow";
+            this.mnuShowArrow.Size = new System.Drawing.Size(192, 22);
+            this.mnuShowArrow.Text = "Show arrows";
+            this.mnuShowArrow.Click += new System.EventHandler(this.mnuShowArrow_Click);
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(189, 6);
             // 
             // mnuPenColor
             // 
@@ -227,6 +268,11 @@
             this.mnuPen4.Text = "Pen width 4";
             this.mnuPen4.Click += new System.EventHandler(this.mnuPen4_Click);
             // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(189, 6);
+            // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -261,6 +307,20 @@
             this.mnuTran255.Text = "255";
             this.mnuTran255.Click += new System.EventHandler(this.mnuTrans_Click);
             // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(189, 6);
+            // 
+            // mnuShowMouseGuid
+            // 
+            this.mnuShowMouseGuid.Checked = true;
+            this.mnuShowMouseGuid.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.mnuShowMouseGuid.Name = "mnuShowMouseGuid";
+            this.mnuShowMouseGuid.Size = new System.Drawing.Size(192, 22);
+            this.mnuShowMouseGuid.Text = "Show mouse guid";
+            this.mnuShowMouseGuid.Click += new System.EventHandler(this.mnuShowMouseGuid_Click);
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
@@ -274,6 +334,11 @@
             this.mnuConfirm.Size = new System.Drawing.Size(192, 22);
             this.mnuConfirm.Text = "Confirm before saving";
             this.mnuConfirm.Click += new System.EventHandler(this.mnuConfirm_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(189, 6);
             // 
             // mnuManageClass
             // 
@@ -297,16 +362,12 @@
             this.mnuMoveImageCenter.Text = "Move Center";
             this.mnuMoveImageCenter.Click += new System.EventHandler(this.mnuMoveImageCenter_Click);
             // 
-            // lbFiles
+            // mnuAbout
             // 
-            this.lbFiles.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbFiles.FormattingEnabled = true;
-            this.lbFiles.Location = new System.Drawing.Point(0, 0);
-            this.lbFiles.Name = "lbFiles";
-            this.lbFiles.Size = new System.Drawing.Size(172, 492);
-            this.lbFiles.TabIndex = 2;
-            this.lbFiles.SelectedIndexChanged += new System.EventHandler(this.lbFiles_DoubleClick);
-            this.lbFiles.DoubleClick += new System.EventHandler(this.lbFiles_DoubleClick);
+            this.mnuAbout.Name = "mnuAbout";
+            this.mnuAbout.Size = new System.Drawing.Size(52, 20);
+            this.mnuAbout.Text = "About";
+            this.mnuAbout.Click += new System.EventHandler(this.mnuAbout_Click);
             // 
             // splitContainer1
             // 
@@ -321,10 +382,31 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.lbFiles);
+            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Size = new System.Drawing.Size(798, 492);
             this.splitContainer1.SplitterDistance = 622;
             this.splitContainer1.TabIndex = 3;
+            // 
+            // pbMain
+            // 
+            this.pbMain.BackColor = System.Drawing.Color.Black;
+            this.pbMain.Bitmap = null;
+            this.pbMain.BoundingBoxPenColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(0)))), ((int)(((byte)(128)))));
+            this.pbMain.BoundingBoxPenWidth = 2F;
+            this.pbMain.BoundingBoxTransparency = ((byte)(255));
+            this.pbMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbMain.ImageLocation = "";
+            this.pbMain.Location = new System.Drawing.Point(0, 0);
+            this.pbMain.Name = "pbMain";
+            this.pbMain.Scale = 1F;
+            this.pbMain.SelectedBoundingBoxIndex = -1;
+            this.pbMain.ShowArrows = false;
+            this.pbMain.ShowMouseGuid = true;
+            this.pbMain.Size = new System.Drawing.Size(622, 470);
+            this.pbMain.TabIndex = 2;
+            this.pbMain.SelectedBoundingBoxeIndexChanged += new System.EventHandler(this.pbMain_SelectedBoundingBoxeIndexChanged);
+            this.pbMain.BoundingBoxListChanged += new System.EventHandler(this.pbMain_BoundingBoxListChanged);
+            this.pbMain.ScaleChanged += new bounding_box_annotation.boundaingbox.ScaleEventHandler(this.pbMain_ScaleChanged);
             // 
             // statusStrip1
             // 
@@ -432,85 +514,68 @@
             this.mnuZoomBestFit.Text = "Best Fit";
             this.mnuZoomBestFit.Click += new System.EventHandler(this.mnuZoomBestFit_Click);
             // 
-            // mnuAbout
+            // splitContainer2
             // 
-            this.mnuAbout.Name = "mnuAbout";
-            this.mnuAbout.Size = new System.Drawing.Size(52, 20);
-            this.mnuAbout.Text = "About";
-            this.mnuAbout.Click += new System.EventHandler(this.mnuAbout_Click);
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // mnuSave
+            // splitContainer2.Panel1
             // 
-            this.mnuSave.Name = "mnuSave";
-            this.mnuSave.ShortcutKeyDisplayString = "S";
-            this.mnuSave.Size = new System.Drawing.Size(164, 22);
-            this.mnuSave.Text = "Save";
-            this.mnuSave.Click += new System.EventHandler(this.mnuSave_Click);
+            this.splitContainer2.Panel1.Controls.Add(this.groupBox2);
             // 
-            // toolStripSeparator1
+            // splitContainer2.Panel2
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(161, 6);
+            this.splitContainer2.Panel2.Controls.Add(this.groupBox1);
+            this.splitContainer2.Size = new System.Drawing.Size(172, 492);
+            this.splitContainer2.SplitterDistance = 313;
+            this.splitContainer2.TabIndex = 3;
             // 
-            // toolStripSeparator5
+            // groupBox2
             // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(161, 6);
+            this.groupBox2.Controls.Add(this.lbFiles);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(5);
+            this.groupBox2.Size = new System.Drawing.Size(172, 313);
+            this.groupBox2.TabIndex = 0;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Filenames";
             // 
-            // toolStripSeparator6
+            // lbFiles
             // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(189, 6);
+            this.lbFiles.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbFiles.FormattingEnabled = true;
+            this.lbFiles.Location = new System.Drawing.Point(5, 18);
+            this.lbFiles.Name = "lbFiles";
+            this.lbFiles.Size = new System.Drawing.Size(162, 290);
+            this.lbFiles.TabIndex = 2;
+            this.lbFiles.SelectedIndexChanged += new System.EventHandler(this.lbFiles_DoubleClick);
+            this.lbFiles.DoubleClick += new System.EventHandler(this.lbFiles_DoubleClick);
             // 
-            // toolStripMenuItem5
+            // groupBox1
             // 
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(189, 6);
+            this.groupBox1.Controls.Add(this.lbBBs);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(5);
+            this.groupBox1.Size = new System.Drawing.Size(172, 175);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Bounding boxes";
             // 
-            // mnuShowMouseGuid
+            // lbBBs
             // 
-            this.mnuShowMouseGuid.Checked = true;
-            this.mnuShowMouseGuid.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.mnuShowMouseGuid.Name = "mnuShowMouseGuid";
-            this.mnuShowMouseGuid.Size = new System.Drawing.Size(192, 22);
-            this.mnuShowMouseGuid.Text = "Show mouse guid";
-            this.mnuShowMouseGuid.Click += new System.EventHandler(this.mnuShowMouseGuid_Click);
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(189, 6);
-            // 
-            // mnuShowArrow
-            // 
-            this.mnuShowArrow.CheckOnClick = true;
-            this.mnuShowArrow.Name = "mnuShowArrow";
-            this.mnuShowArrow.Size = new System.Drawing.Size(192, 22);
-            this.mnuShowArrow.Text = "Show arrows";
-            this.mnuShowArrow.Click += new System.EventHandler(this.mnuShowArrow_Click);
-            // 
-            // toolStripSeparator8
-            // 
-            this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(189, 6);
-            // 
-            // pbMain
-            // 
-            this.pbMain.BackColor = System.Drawing.Color.Black;
-            this.pbMain.Bitmap = null;
-            this.pbMain.BoundingBoxPenColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(0)))), ((int)(((byte)(128)))));
-            this.pbMain.BoundingBoxPenWidth = 2F;
-            this.pbMain.BoundingBoxTransparency = ((byte)(255));
-            this.pbMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pbMain.ImageLocation = "";
-            this.pbMain.Location = new System.Drawing.Point(0, 0);
-            this.pbMain.Name = "pbMain";
-            this.pbMain.Scale = 1F;
-            this.pbMain.ShowArrows = false;
-            this.pbMain.ShowMouseGuid = true;
-            this.pbMain.Size = new System.Drawing.Size(622, 470);
-            this.pbMain.TabIndex = 2;
-            this.pbMain.ScaleChanged += new bounding_box_annotation.boundaingbox.ScaleEventHandler(this.pbMain_ScaleChanged);
+            this.lbBBs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbBBs.FormattingEnabled = true;
+            this.lbBBs.Location = new System.Drawing.Point(5, 18);
+            this.lbBBs.Name = "lbBBs";
+            this.lbBBs.Size = new System.Drawing.Size(162, 152);
+            this.lbBBs.TabIndex = 0;
+            this.lbBBs.SelectedIndexChanged += new System.EventHandler(this.lbBBs_SelectedIndexChanged);
             // 
             // FrmMain
             // 
@@ -537,6 +602,12 @@
             this.splitContainer1.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -596,6 +667,10 @@
         private System.Windows.Forms.ToolStripMenuItem mnuShowMouseGuid;
         private System.Windows.Forms.ToolStripMenuItem mnuShowArrow;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ListBox lbBBs;
     }
 }
 

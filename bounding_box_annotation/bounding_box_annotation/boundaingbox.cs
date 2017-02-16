@@ -103,10 +103,25 @@ namespace bounding_box_annotation
         List<string> listRecentLabels;
 
         public delegate void ScaleEventHandler(object sender, float scale);
-
+        
+        public event EventHandler SelectedBoundingBoxeIndexChanged;
+        public event EventHandler BoundingBoxListChanged;
         public event ScaleEventHandler ScaleChanged;
 
         #region Properties
+        [Browsable(false)]
+        public int SelectedBoundingBoxIndex
+        {
+            get {
+                return this.selected_bb_index;
+            }
+            set {
+                selected_bb_index = value;
+                RaiseSelectedBoundingBoxeIndexChanged();
+                this.Refresh();
+            }
+        }
+
         [Description("Show arrows on bounding boxes")]
         public bool ShowArrows
         {
@@ -135,11 +150,18 @@ namespace bounding_box_annotation
             }
         }
 
+        [Browsable(false)]
         public List<BoundingBox> Items
         {
             get
             {
                 return this.list_bbs;
+            }
+            set
+            {
+                this.list_bbs = value;
+                RaiseBoundingBoxListChanged();
+                this.Refresh();
             }
         }
        
@@ -229,6 +251,31 @@ namespace bounding_box_annotation
         }
         #endregion
 
+        public void SelectWithoutRaisingEven(int index)
+        {
+            if (index >=0 && index < list_bbs.Count)
+            {
+                selected_bb_index = index;
+                this.Refresh();
+            }
+        }
+
+        private void RaiseSelectedBoundingBoxeIndexChanged()
+        {
+            if (SelectedBoundingBoxeIndexChanged != null)
+            {
+                SelectedBoundingBoxeIndexChanged(this, EventArgs.Empty);
+            }
+        }
+
+        private void RaiseBoundingBoxListChanged()
+        {
+            if (BoundingBoxListChanged != null)
+            {
+                BoundingBoxListChanged(this, EventArgs.Empty);
+            }
+        }
+
         private void UpdateRecentLabels(string[] labels)
         {
             if (labels == null || labels.Length == 0)
@@ -262,6 +309,7 @@ namespace bounding_box_annotation
                 list_bbs.RemoveAt(selected_bb_index);
                 selected_bb_index = -1;
                 current_bb_index = -1;
+                RaiseBoundingBoxListChanged();
                 this.Refresh();
             }
         }
@@ -273,10 +321,13 @@ namespace bounding_box_annotation
             this.Refresh();
         }
 
+        
         public void Clear()
         {
             list_bbs.Clear();
             current_bb_index = selected_bb_index = -1;
+            RaiseBoundingBoxListChanged();
+            RaiseSelectedBoundingBoxeIndexChanged();            
             bb.IsEmpty = true;
             this.Refresh();
         }
@@ -294,11 +345,16 @@ namespace bounding_box_annotation
                 list_bbs[i] = list_bbs[i].Clip(temp_Rect);
             }
         }
+        
         private void UpdateImageAndClearCrop()
         {
             this.list_bbs.Clear();
+            selected_bb_index = current_bb_index = -1;
+            RaiseBoundingBoxListChanged();
+            
             UpdateImage();
         }
+        
         private void UpdateImage()
         {
             if (bmp_canvas == null)
@@ -317,6 +373,7 @@ namespace bounding_box_annotation
         {            
             base.OnClick(e);
             selected_bb_index = current_bb_index;
+            RaiseSelectedBoundingBoxeIndexChanged();
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -341,6 +398,7 @@ namespace bounding_box_annotation
                     selected_bb_index = -1;
                 }
                 e.IsInputKey = true;
+                RaiseSelectedBoundingBoxeIndexChanged();
                 this.Refresh();
 
             }
@@ -351,7 +409,13 @@ namespace bounding_box_annotation
             }
             
         }
-        
+
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            base.OnMouseLeave(e);
+            this.ptMouseLocation = Point.Empty;
+            this.Refresh();
+        }
         protected override void OnMouseWheel(MouseEventArgs e)
         {
             base.OnMouseWheel(e);
@@ -417,6 +481,7 @@ namespace bounding_box_annotation
                 
             }
         }
+        
         protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);
@@ -607,6 +672,7 @@ namespace bounding_box_annotation
                 this.Refresh();
             }
         }
+        
         protected override void OnMouseUp(MouseEventArgs e)
         {
             base.OnMouseUp(e);
@@ -635,6 +701,7 @@ namespace bounding_box_annotation
                         list_bbs.Add(bb);
                         bb.BB = Rectangle.Empty;
                         drawingState = DrawingState.None;
+                        RaiseBoundingBoxListChanged();
                         this.Refresh();
                     }
                     
@@ -782,6 +849,7 @@ namespace bounding_box_annotation
                     bb.ClassLabel = frm.SelectedLabels;
                     UpdateRecentLabels(bb.ClassLabel);
                     list_bbs[selected_bb_index] = bb;
+                    RaiseBoundingBoxListChanged();
                 }
             }
         }
