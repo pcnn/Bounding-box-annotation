@@ -229,22 +229,30 @@ namespace bounding_box_annotation
         }
         #endregion
 
-        private void UpdateRecentLabels(string label)
+        private void UpdateRecentLabels(string[] labels)
         {
-            if (label.Trim().Length == 0)
+            if (labels == null || labels.Length == 0)
             {
                 return;
             }
 
-            listRecentLabels.Insert(0, label);
-            for (int i = 1; i < listRecentLabels.Count; i++)
+            foreach (var label in labels)
             {
-                if (label.Trim()  == listRecentLabels[i].Trim())
+                if (label.Trim().Length == 0)
                 {
-                    listRecentLabels.RemoveAt(i);                                       
-                    break;
+                    continue;
                 }
-            }            
+                listRecentLabels.Insert(0, label);
+                for (int i = 1; i < listRecentLabels.Count; i++)
+                {
+                    if (label.Trim() == listRecentLabels[i].Trim())
+                    {
+                        listRecentLabels.RemoveAt(i);
+                        break;
+                    }
+                }                
+            }
+            
         }
 
         public void RemoveSelected()
@@ -439,7 +447,7 @@ namespace bounding_box_annotation
                     bb = new BoundingBox(new RectangleF(Math.Min(ptStart.X / scale, ptEnd.X / scale),
                                                         Math.Min(ptStart.Y / scale, ptEnd.Y / scale),
                                                         Math.Abs(ptEnd.X / scale - ptStart.X / scale),
-                                                        Math.Abs(ptEnd.Y / scale - ptStart.Y / scale)), "");                    
+                                                        Math.Abs(ptEnd.Y / scale - ptStart.Y / scale)));                    
                     this.Refresh();
                 }
                 else if (drawingState == DrawingState.MoveBoundingBox)
@@ -621,7 +629,7 @@ namespace bounding_box_annotation
                         frm.Top = e.Y;
                         if (frm.ShowDialog() == DialogResult.Yes)
                         {
-                            bb.ClassLabel = frm.SelectedLabel;                            
+                            bb.ClassLabel = frm.SelectedLabels;                            
                         }
                         UpdateRecentLabels(bb.ClassLabel);
                         list_bbs.Add(bb);
@@ -765,13 +773,13 @@ namespace bounding_box_annotation
                 FrmClasses frm = new FrmClasses();
                 frm.StartPosition = FormStartPosition.Manual;
                 frm.SetRecentLabel(listRecentLabels);
-                frm.Left = (int)list_bbs[selected_bb_index].BB.Right;
-                frm.Top = (int)list_bbs[selected_bb_index].BB.Bottom;
-                frm.SelectedLabel = list_bbs[selected_bb_index].ClassLabel;
+                frm.Left = MousePosition.X; // (int)list_bbs[selected_bb_index].BB.Right;
+                frm.Top = MousePosition.Y; // (int)list_bbs[selected_bb_index].BB.Bottom;
+                frm.SelectedLabels = list_bbs[selected_bb_index].ClassLabel;
                 if (frm.ShowDialog() == DialogResult.Yes)
                 {
                     BoundingBox bb = list_bbs[selected_bb_index];
-                    bb.ClassLabel = frm.SelectedLabel;
+                    bb.ClassLabel = frm.SelectedLabels;
                     UpdateRecentLabels(bb.ClassLabel);
                     list_bbs[selected_bb_index] = bb;
                 }

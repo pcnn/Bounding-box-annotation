@@ -11,23 +11,28 @@ namespace bounding_box_annotation
 {
     public partial class FrmClasses : Form
     {
-        string selectedLabe = "";
-        public string SelectedLabel
+        string[] selectedLabels = null;
+        public string[] SelectedLabels
         {
             get {
                 if (lbLabels.SelectedIndex >= 0)
                 {
-                    return lbLabels.SelectedItem.ToString();
+                    
+                    return (from object obj in lbLabels.SelectedItems
+                           select obj.ToString()).ToArray<string>();
+                    //return lbLabels.SelectedItem.ToString();                    
                 }
                 else if(lbRecent.SelectedIndex >= 0)
                 {
-                    return lbRecent.SelectedItem.ToString();
+                    return (from object obj in lbRecent.SelectedItems
+                            select obj.ToString()).ToArray<string>();
+                    //return lbRecent.SelectedItem.ToString();
                 }
                 else
-                    return "";
+                    return null;
             }
             set {
-                selectedLabe = value.Trim(); ;
+                selectedLabels = value ;
             }
         }
 
@@ -47,16 +52,20 @@ namespace bounding_box_annotation
             ClassLabelManager lblManager = new ClassLabelManager();
             lbLabels.Items.Clear();
             lbLabels.Items.AddRange(lblManager.ReadLabels().ToArray());
-            if (selectedLabe.Length > 0)
+            if (selectedLabels != null && selectedLabels.Length > 0)
             {
-                for (int i = 0; i < lbLabels.Items.Count; i++)
+                foreach (var lbl in selectedLabels)
                 {
-                    if (lbLabels.Items[i].ToString().Trim() == selectedLabe.Trim())
+                    for (int i = 0; i < lbLabels.Items.Count; i++)
                     {
-                        lbLabels.SelectedIndex = i;
-                        break;
+                        if (lbLabels.Items[i].ToString().Trim() == lbl.Trim())
+                        {
+                            lbLabels.SetSelected(i, true);
+                            break;
+                        }
                     }
                 }
+                
             }
             
         }
@@ -84,6 +93,19 @@ namespace bounding_box_annotation
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.DialogResult = System.Windows.Forms.DialogResult.No;
+        }
+
+        private void btnSelectAndClose_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = System.Windows.Forms.DialogResult.Yes;
+        }
+
+        private void FrmClasses_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                btnSelectAndClose.PerformClick();
+            }
         }
     }
 }

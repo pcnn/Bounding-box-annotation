@@ -67,11 +67,16 @@ namespace bounding_box_annotation
                     {
                         row = sr.ReadLine();
                         string[] splits = row.Split(';');
+                        List<string> labels = new List<string>();
+                        for (int i = 5; i < splits.Length; i++)
+                        {
+                            labels.Add(splits[i]);
+                        }
                         pbMain.Items.Add(new BoundingBox(float.Parse(splits[1]),
                                                          float.Parse(splits[2]),
                                                          float.Parse(splits[3]),
                                                          float.Parse(splits[4]),
-                                                         splits[5]));
+                                                         labels.ToArray()));
                         pbMain.Refresh();
                     }
                 }
@@ -101,13 +106,19 @@ namespace bounding_box_annotation
                     sw.WriteLine("filename;x;y;width;height;label");
                     for (int i = 0; i < pbMain.Items.Count; i++)
                     {
+                        string labels = "";
+                        for (int _ = 0; _ < pbMain.Items[i].ClassLabel.Length; _++)
+                        {
+
+                            labels += ";" + pbMain.Items[i].ClassLabel[_];
+                        }
                         sw.WriteLine(string.Format("{0};{1};{2};{3};{4};{5}",
                                      name,
                                      pbMain.Items[i].BB.X,
                                      pbMain.Items[i].BB.Y,
                                      pbMain.Items[i].BB.Width,
                                      pbMain.Items[i].BB.Height,
-                                     pbMain.Items[i].ClassLabel));
+                                     labels));
                     }
                     sw.Flush();
                     

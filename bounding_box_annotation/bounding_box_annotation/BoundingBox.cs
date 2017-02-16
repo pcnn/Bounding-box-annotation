@@ -9,7 +9,7 @@ namespace bounding_box_annotation
     public struct BoundingBox
     {
         private RectangleF rect;
-        private string classLabel;       
+        private List<string> classLabel;       
         private bool isEmpty;
 
         public bool IsEmpty
@@ -18,14 +18,18 @@ namespace bounding_box_annotation
             set { this.isEmpty = value; }
         }
 
-        public BoundingBox(float x, float y, float width, float height, string classLabel = ""):this(new RectangleF(x, y, width, height), classLabel)
+        public BoundingBox(float x, float y, float width, float height, string[] classLabels = null):this(new RectangleF(x, y, width, height), classLabels)
         {            
         }
 
-        public BoundingBox(RectangleF rect, string classLabel = "")
+        public BoundingBox(RectangleF rect, string[] classLabels = null)
         {
             this.rect = rect;
-            this.classLabel = classLabel;            
+            this.classLabel = new List<string>();
+            if (classLabels != null && classLabels.Length > 0)
+            {
+                this.classLabel.AddRange(classLabels);
+            }            
             isEmpty = false;
         }
 
@@ -35,10 +39,14 @@ namespace bounding_box_annotation
             set { this.rect = value; }
         }
 
-        public string ClassLabel
+        public string[] ClassLabel
         {
-            get { return this.classLabel; }
-            set { this.classLabel = value; }
+            get { return this.classLabel.ToArray(); }
+            set
+            {
+                this.classLabel.Clear();
+                this.classLabel.AddRange(value);
+            }
         }
 
         public BoundingBox Clip(RectangleF source)
