@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Xml;
 
 namespace bounding_box_annotation
 {
     public partial class FrmMain : Form
     {
-        bool has_changed = false;
+        
         public FrmMain()
         {
             InitializeComponent();
@@ -133,15 +134,15 @@ namespace bounding_box_annotation
                     sw.Flush();
                     
                 }
-                has_changed = false;
+                
             }
         }
 
-        private void GetAnnotationFilePath(out string name, out string filePath)
+        private void GetAnnotationFilePath(out string name, out string filePath, bool is_xml=false)
         {
             string path = pbMain.ImageLocation;
             name = System.IO.Path.GetFileNameWithoutExtension(path);
-            filePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(path), name + ".txt");
+            filePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(path), name + (is_xml ? ".xml" : ".txt"));
         }
 
         
@@ -184,6 +185,10 @@ namespace bounding_box_annotation
             else if (e.KeyChar == 's' || e.KeyChar == 'S')
             {
                 mnuSave.PerformClick();
+            }
+            else if (e.KeyChar == 'x' || e.KeyChar == 'X')
+            {
+                mnuSaveXML.PerformClick();
             }
         }
 
@@ -344,6 +349,57 @@ namespace bounding_box_annotation
         private void lbBBs_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.pbMain.SelectWithoutRaisingEven(lbBBs.SelectedIndex);
+        }
+
+        private void mnuSaveXML_Click(object sender, EventArgs e)
+        {
+            string name;
+            string save_to;
+            GetAnnotationFilePath(out name, out save_to, is_xml:true);
+
+            System.Xml.XmlTextWriter xml = new XmlTextWriter(save_to, Encoding.UTF8);
+            xml.Formatting = Formatting.Indented;
+            xml.WriteStartElement("annotation");            
+            xml.WriteElementString("folder", lbFiles.Tag.ToString());
+            xml.WriteElementString("filename", lbFiles.SelectedItem.ToString());
+            xml.WriteElementString("path", pbMain.ImageLocation);
+            xml.WriteStartElement("source");            
+                xml.WriteElementString("database", "Unknown");
+            xml.WriteEndElement();
+            xml.WriteStartElement("size");
+            xml.WriteElementString("width", pbMain.Bitmap.Width.ToString());
+            xml.WriteElementString("height", pbMain.Bitmap.Height.ToString());
+            xml.WriteElementString("depth", "3");
+            xml.WriteEndElement();
+            xml.WriteElementString("segmented", "0");
+            for (int i = 0; i < pbMain.Items.Count; i++)
+            {
+                xml.WriteStartElement("object");
+                for (int ii = 0; ii < pbMain.Items[i].ClassLabel.Length; ii++)
+                {
+                    if (pbMain.Items[i].ClassLabel[ii].Length > 0)
+                    {                        
+                        xml.WriteElementString("name", pbMain.Items[i].ClassLabel[ii]);
+                    }
+
+
+                }
+                xml.WriteElementString("pose", "Unspecified");
+                xml.WriteElementString("truncated","0");
+                xml.WriteElementString("difficult","0");
+                xml.WriteStartElement("bndbox");                
+                xml.WriteElementString("xmin",pbMain.Items[i].BB.X.ToString());
+                xml.WriteElementString("ymin",pbMain.Items[i].BB.Y.ToString());
+                xml.WriteElementString("xmax",(pbMain.Items[i].BB.X+pbMain.Items[i].BB.Width).ToString());
+                xml.WriteElementString("ymax",(pbMain.Items[i].BB.Y+pbMain.Items[i].BB.Height).ToString());
+                xml.WriteEndElement();
+                xml.WriteEndElement();
+            }
+
+            xml.WriteEndElement();
+            xml.Flush();
+            xml.Close();
+            
         }
     }   
 }
