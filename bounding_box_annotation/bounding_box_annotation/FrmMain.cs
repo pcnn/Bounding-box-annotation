@@ -27,6 +27,7 @@ namespace bounding_box_annotation
                 lbFiles.Items.Clear();
                 lbFiles.Tag = folderBrowserDialog1.SelectedPath;
                 this.Text = "Cropping tool-" + folderBrowserDialog1.SelectedPath;
+                List<string> lbItemsList = new List<string>();
                 foreach (string str in files)
                 {
                     string ext = Path.GetExtension(str).ToLower();
@@ -34,9 +35,10 @@ namespace bounding_box_annotation
                     {
                         continue;
                     }
-                    lbFiles.Items.Add(Path.GetFileName(str));    
+                    lbItemsList.Add(Path.GetFileName(str));    
                     
                 }
+                lbFiles.Items.AddRange(lbItemsList.ToArray());
                 if (lbFiles.Items.Count > 0)
                 {
                     lbFiles.SelectedIndex = 0;
@@ -98,8 +100,9 @@ namespace bounding_box_annotation
             }
             if (mnuConfirm.Checked)
             {
-                save_flag = MessageBox.Show("Are you sure to overwrite the image?", "confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.Yes;
+                save_flag = MessageBox.Show("Are you sure to overwrite the annotation?", "confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == System.Windows.Forms.DialogResult.Yes;
             }
+            mnuSaveXML.PerformClick();
             if (save_flag)
             {
                 string name;

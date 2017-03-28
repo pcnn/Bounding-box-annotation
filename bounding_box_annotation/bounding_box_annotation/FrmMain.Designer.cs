@@ -39,6 +39,7 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuSaveXML = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSave = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,7 +87,6 @@
             this.lbFiles = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lbBBs = new System.Windows.Forms.ListBox();
-            this.mnuSaveXML = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -136,20 +136,20 @@
             // 
             this.mnuOpenDir.Name = "mnuOpenDir";
             this.mnuOpenDir.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.mnuOpenDir.Size = new System.Drawing.Size(167, 22);
+            this.mnuOpenDir.Size = new System.Drawing.Size(185, 22);
             this.mnuOpenDir.Text = "Open Dir";
             this.mnuOpenDir.Click += new System.EventHandler(this.mnuOpenDir_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(164, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(182, 6);
             // 
             // mnuNext
             // 
             this.mnuNext.Name = "mnuNext";
             this.mnuNext.ShortcutKeyDisplayString = "D or 6";
-            this.mnuNext.Size = new System.Drawing.Size(167, 22);
+            this.mnuNext.Size = new System.Drawing.Size(185, 22);
             this.mnuNext.Text = "Next";
             this.mnuNext.Click += new System.EventHandler(this.mnuNext_Click);
             // 
@@ -157,46 +157,54 @@
             // 
             this.mnuPrev.Name = "mnuPrev";
             this.mnuPrev.ShortcutKeyDisplayString = "A or 4";
-            this.mnuPrev.Size = new System.Drawing.Size(167, 22);
+            this.mnuPrev.Size = new System.Drawing.Size(185, 22);
             this.mnuPrev.Text = "Previous";
             this.mnuPrev.Click += new System.EventHandler(this.mnuPrev_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(164, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(182, 6);
             // 
             // mnuDelete
             // 
             this.mnuDelete.Name = "mnuDelete";
             this.mnuDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.mnuDelete.Size = new System.Drawing.Size(167, 22);
+            this.mnuDelete.Size = new System.Drawing.Size(185, 22);
             this.mnuDelete.Text = "Delete image";
             this.mnuDelete.Click += new System.EventHandler(this.mnuDelete_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(164, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(182, 6);
+            // 
+            // mnuSaveXML
+            // 
+            this.mnuSaveXML.Name = "mnuSaveXML";
+            this.mnuSaveXML.ShortcutKeyDisplayString = "X";
+            this.mnuSaveXML.Size = new System.Drawing.Size(185, 22);
+            this.mnuSaveXML.Text = "Save XML";
+            this.mnuSaveXML.Click += new System.EventHandler(this.mnuSaveXML_Click);
             // 
             // mnuSave
             // 
             this.mnuSave.Name = "mnuSave";
             this.mnuSave.ShortcutKeyDisplayString = "S";
-            this.mnuSave.Size = new System.Drawing.Size(167, 22);
-            this.mnuSave.Text = "Save";
+            this.mnuSave.Size = new System.Drawing.Size(185, 22);
+            this.mnuSave.Text = "Save XML and CSV";
             this.mnuSave.Click += new System.EventHandler(this.mnuSave_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(164, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(182, 6);
             // 
             // mnuExit
             // 
             this.mnuExit.Name = "mnuExit";
             this.mnuExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.mnuExit.Size = new System.Drawing.Size(167, 22);
+            this.mnuExit.Size = new System.Drawing.Size(185, 22);
             this.mnuExit.Text = "Exit";
             this.mnuExit.Click += new System.EventHandler(this.mnuExit_Click);
             // 
@@ -578,14 +586,6 @@
             this.lbBBs.Size = new System.Drawing.Size(162, 152);
             this.lbBBs.TabIndex = 0;
             this.lbBBs.SelectedIndexChanged += new System.EventHandler(this.lbBBs_SelectedIndexChanged);
-            // 
-            // mnuSaveXML
-            // 
-            this.mnuSaveXML.Name = "mnuSaveXML";
-            this.mnuSaveXML.ShortcutKeyDisplayString = "X";
-            this.mnuSaveXML.Size = new System.Drawing.Size(167, 22);
-            this.mnuSaveXML.Text = "Save XML";
-            this.mnuSaveXML.Click += new System.EventHandler(this.mnuSaveXML_Click);
             // 
             // FrmMain
             // 
